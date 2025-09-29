@@ -1,11 +1,11 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
-build-backend = "flit_core.buildapi"
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
-name = "analise_hits_spotify"
+name = "analise-hits-spotify"
 version = "0.0.1"
-description = "Uma an\u00e1lise para descobrir as caracter\u00edsticas de \u00e1udio comuns em m\u00fasicas de sucesso no Spotify."
+description = "Uma análise para descobrir as características de áudio comuns em músicas de sucesso no Spotify."
 authors = [
   { name = "Cassio Dalbem Barth" },
 ]
@@ -15,18 +15,45 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License"
 ]
-requires-python = "~=3.10.0"
+requires-python = ">=3.9"
+dependencies = [
+    "awscli",
+    "ipython",
+    "jupyterlab",
+    "loguru",
+    "matplotlib",
+    "mkdocs",
+    "notebook",
+    "numpy",
+    "pandas",
+    "pytest",
+    "python-dotenv",
+    "ruff",
+    "scikit-learn",
+    "tqdm",
+    "typer",
+]
 
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
+# Isso permite que o pacote seja instalado mesmo sem módulos Python ainda
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*"]
+exclude = ["venv*", "tests*", "notebooks*", "data*", "docs*", "reports*", "references*", "build*", "dist*"]
 
 [tool.ruff]
 line-length = 99
-src = ["analise_hits_spotify"]
-include = ["pyproject.toml", "analise_hits_spotify/**/*.py"]
+src = ["."]
+include = ["pyproject.toml", "**/*.py"]
 
 [tool.ruff.lint]
-extend-select = ["I"]  # Add import sorting
+extend-select = ["I"]
 
 [tool.ruff.lint.isort]
 known-first-party = ["analise_hits_spotify"]
 force-sort-within-sections = true
-
